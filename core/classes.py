@@ -11,7 +11,7 @@ class Bot(commands.AutoShardedBot):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		with open("settings.json", "r", encoding="utf8") as file:
-			self._settings = json.load(file, encoding='utf8')
+			self._settings = json.load(file)
 
 	@property
 	def settings(self):

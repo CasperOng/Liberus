@@ -1,5 +1,6 @@
 #!/usr/bin/python3.6
 # -*- coding: utf-8 -*-
+import discord
 from discord.ext import commands
 from core.helper import cmderr, sprint
 from core.classes import Bot
@@ -18,17 +19,7 @@ if __name__ == "__main__":
 		loop = asyncio.get_event_loop()
 	os.chdir(Path(__file__).resolve().parent)
 
-	def get_prefix(bot, ctx):
-		if not ctx.guild:
-			return commands.when_mentioned_or('/', 'libereuse')(bot, ctx)
-		with open('settings.json') as jfile:
-			prefixes = json.load(jfile)
-		if str(ctx.guild.id) not in prefixes:
-			return commands.when_mentioned_or('/', 'libereuse')(bot, ctx)
-		prefix = prefixes[str(ctx.guild.id)]
-		return commands.when_mentioned_or(prefix)(bot, ctx)
-
-	bot = Bot(command_prefix=get_prefix, pm_help=None, loop=loop)
+	bot = Bot(command_prefix=".", pm_help=None, loop=loop, intents=discord.Intents.default())
 
 	ext_path = "cmds"
 
